@@ -6,7 +6,7 @@ import { mysqlPool } from "../../../../lib/db";
     const data = await req.json();
     const PromisePool = mysqlPool.promise()
     PromisePool.query('INSERT INTO list_leaves set ?',[data])
-    return NextResponse.json({massage:'Successfully'},{status:200})
+    return NextResponse.json({massage:'เพิ่มข้อมูลสำเร็จ'},{status:200})
  }
  
  export async function GET(){
