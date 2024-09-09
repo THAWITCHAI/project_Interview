@@ -14,3 +14,11 @@ import { mysqlPool } from "../../../../lib/db";
     const [res] = await PromisePool.query(`SELECT * FROM list_leaves L JOIN status S ON L.sid = S.sid`)
     return NextResponse.json(res)
  }
+
+ export async function DELETE(req:any){
+   const {id} = await req.json();
+   console.log(id)
+   const PromisePool = mysqlPool.promise()
+   PromisePool.query(`DELETE FROM list_leaves WHERE id = ${id}`)
+   return NextResponse.json({massage:'Successfully'},{status:200})
+}
