@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 interface Interveiw {
@@ -50,8 +51,8 @@ export default function Show_data() {
         <input
           onChange={(e) => setSearch(e.target.value)}
           type="text"
-          placeholder="ค้นหา"
-          className="outline-none border w-1/2 h-1/2 rounded-md px-2"
+          placeholder="กรอกคำค้นหา ชื่อ ตำแหน่ง อีเมล์ เวลา และ ประเภทการลา"
+          className="outline-none border w-[40%] h-1/2 rounded-md px-2"
         />
       </div>
       <div className="relative overflow-y-scroll h-[30rem] ">
@@ -110,7 +111,7 @@ export default function Show_data() {
                     </td>
                     <td className="px-6 py-4">
                       <button className="bg-blue-500 text-white w-[5rem] h-[3rem] rounded-md mx-3 active:scale-90 transition-all ease-in-out">
-                        เพิ่มเติม
+                        <Link href={`/show_data/${item.id}`}>เพิ่มเติม</Link>
                       </button>
                       <button
                         className="bg-red-500 text-white w-[5rem] h-[3rem] rounded-md active:scale-90 transition-all ease-in-out"
