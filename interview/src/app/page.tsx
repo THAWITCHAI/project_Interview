@@ -1,18 +1,52 @@
 "use client";
+import dayjs from "dayjs";
 import React, { useState } from "react";
 export default function List() {
   const [type_leave, setType_leave] = useState("");
   const [form, setForm] = useState({});
   const [err, setErr] = useState("");
+  const [startDate,setStartDate] = useState<string|null>(null)
+  const [endDate,setEndDate] = useState<string|null>(null)
+  console.log(startDate,endDate)
 
   const handleChang = (e: any) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+    if(e.target.name==='date_s'){
+      setStartDate(e.target.value)
+    }
+    if(e.target.name==='date_e'){
+      setEndDate(e.target.value)
+    }
+    return
   };
 
   const handleSubmit = async () => {
+
+    const today = dayjs()
+    const start = dayjs(startDate)
+    const end = dayjs(endDate)
+
+    if(start.isBefore(today,'day')){
+      return setErr('ไม่อนุญาตให้บันทึกใบลาในอดีต')
+    }
+
+
+    if(type_leave==='พักร้อน'&&start.diff(today,'day')<3){
+      return setErr('การลาพักร้อนต้องล่วงหน้าอย่างน้อย 3 วัน')
+    }
+
+    
+    if(type_leave==='พักร้อน'&&end.diff(start,'day')>1){
+      console.log(end.diff(start,'day'))
+      console.log(end.diff(end,'day'))
+      return setErr('ไม่สามารถลาพักร้อนได้ติดต่อกันเกิน 2 วัน')
+    }
+
+
+
     const data = Object.assign({}, form, { other_leave: type_leave });
     console.log([data]);
     if (Object.keys(form).length < 8) {
